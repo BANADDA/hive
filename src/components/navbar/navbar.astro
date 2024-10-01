@@ -1,0 +1,61 @@
+---
+import Container from "@components/container.astro";
+import { MenuIcon, MenuItems } from "astro-navbar";
+
+// Define menu items with an optional 'external' property
+const menuitems = [
+  {
+    title: "Home",
+    path: "/",
+  },
+  {
+    title: "About",
+    path: "/about",
+  },
+  {
+    title: "Docs",
+    path: "https://www.yogpt.ai/miner-docs",
+    external: true, // Indicates that this link should open in a new tab
+  },
+  {
+    title: "Contact",
+    path: "/contact",
+  },
+];
+---
+
+<Container>
+  <header class="flex flex-row items-center justify-between my-5">
+    <!-- Left Section: Logo -->
+    <div class="flex items-center">
+      <a href="/" class="text-lg flex items-center">
+        <span class="font-bold text-slate-800">Hi</span>
+        <span class="text-slate-500">ve</span>
+      </a>
+    </div>
+
+    <!-- Center Section: Menu Items -->
+    <MenuItems class="hidden lg:flex justify-center flex-1">
+      <ul class="flex flex-row lg:gap-6 justify-center items-center">
+        {menuitems.map((item, index) => (
+          <li key={index} class="text-center">
+            <a
+              href={item.path}
+              class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900"
+              {...(item.external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+            >
+              <span>{item.title}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </MenuItems>
+
+    <!-- Right Section: Menu Icon (Visible on Mobile) -->
+    <div class="block lg:hidden">
+      <MenuIcon class="w-4 h-4 text-gray-800" />
+    </div>
+  </header>
+</Container>
